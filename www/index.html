@@ -33,8 +33,14 @@
       <ion-content>
         <div ng-controller="GeoCtrl as geo">
           <button class="button button-full button-dark" ng-click="geo.where()">WHEREAMI?</button>
-          <div ng-show="geo.coor">{{geo.coor}}</div>
+          <div ng-show="geo.ownLat">({{geo.ownLat}}, {{geo.ownLong}})</div>
         </div>
+
+        <div ng-controller="GeoCtrl as geo">
+          <button class="button button-full button-dark" ng-click="geo.getDistance(geo.ownLat, geo.ownLong)">Distance?</button>
+          <div>{{geo.distance}}km</div>
+        </div>
+
       </ion-content>
     </ion-pane>
   </body>
