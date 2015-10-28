@@ -1,4 +1,10 @@
 {
   "name": "whoaremi",
-  "app_id": "737244cb"
+  "app_id": "a8d610e9",
+  "proxies": [
+  {
+  "path": "/locations",
+  "proxyUrl": "http://makerswhoami.herokuapp.com/locations"
+  }
+  ]
 }

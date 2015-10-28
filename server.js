@@ -3,22 +3,30 @@ var app = express();
 var bodyParser = require('body-parser');
 var port = process.env.PORT || 8080;
 var pg = require('pg');
+var connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/whoami_development';
 
 app.use(express.static(__dirname + 'www/'+ ''));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 
 app.post('/locations', function(req, res) {
   console.log(req.body);
-  pg.connect('DATABASE_URL', function(err, client, done) {
+  pg.connect(connectionString, function(err, client, done) {
     client.query("INSERT INTO users(email, longitude, latitude) values($1, $2, $3)", [req.body.email, req.body.longitude, req.body.latitude]);
   });
 });
 
-app.get('https://makerswhoami.herokuapp.com/', function(req, res) {
-  pg.connect('DATABASE_URL', function(err, client, done) {
-    // var query = client.query("SELECT * FROM users ORDER BY id ASC;");
+app.get('/', function(req, res) {
+  pg.connect(connectionString, function(err, client, done) {
+    console.log(client)
+    var query = client.query("SELECT * FROM users ORDER BY id ASC;");
     var output = [];
 
     query.on('row', function(row) {
