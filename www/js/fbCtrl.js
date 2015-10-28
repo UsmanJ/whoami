@@ -1,4 +1,4 @@
-whoami.controller('fbCtrl', ["$scope", "$ionicModal", "$timeout", "$http", "ngFB", function($scope, $ionicModal, $timeout, $http, ngFB) {
+whoami.controller('fbCtrl', ["$scope", "$ionicModal", "$timeout", "$http", "$cordovaOauth", "ngFB", function($scope, $ionicModal, $timeout, $http, $cordovaOauth, ngFB) {
 
 	$scope.loginData = {};
 
@@ -24,30 +24,39 @@ whoami.controller('fbCtrl', ["$scope", "$ionicModal", "$timeout", "$http", "ngFB
     }, 1000);
   };
 
-	$scope.fbLogin = function ($http) {
+	$scope.fbLogin = function () {
     ngFB.login({scope: 'email'}).then(
         function (response) {
             if (response.status === 'connected') {
                 console.log('Facebook login succeeded');
                 $scope.closeLogin();
                 console.log(response.authResponse.accessToken);
-                displayData($http, response.authResponse.accessToken)
+                displayData(response.authResponse.accessToken);
+                // $cordovaOauth.facebook("1665971677011459", ["email", "public_profile"]).then(function(result){
+                // 		displayData(result.access_token);
+                // },  function(error){
+                //         alert("Error38: " + error);
+                // });
             } else {
                 alert('Facebook login failed');
             }
         });
 	};
 
-	function displayData($http, access_token) 
+	function displayData(access_token) 
 	{
-    $http.get("https://graph.facebook.com/v2.2/me", {params: {access_token: access_token, fields: "name", format: "json" }}).then(function(result) {
+    $http.get("https://graph.facebook.com/v2.2/me", {params: {access_token: access_token, fields: "name,email", format: "json" }}).then(function(result) {
         var name = result.data.name;
-
+        var email = result.data.email;
         // var html = '<table id="table" data-role="table" data-mode="column" class="ui-responsive"><thead><tr><th>Field</th><th>Info</th></tr></thead><tbody>';
         // html = html + "<tr><td>" + "Name" + "</td><td>" + name + "</td></tr>";
 
         // html = html + "</tbody></table>";
         console.log(name)
+        console.log(email)
+        $scope.loginData.name = name;
+        $scope.loginData.email = email;
+        console.log($scope.loginData);
     }, function(error) {
         alert("Error: " + error);
     });
