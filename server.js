@@ -9,16 +9,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-app.post('/locations', function(req, res) {
+app.post('https://makerswhoami.herokuapp.com/locations', function(req, res) {
   console.log(req.body);
-  pg.connect('postgres://localhost:5432/whoami_development', function(err, client, done) {
+  pg.connect('DATABASE_URL', function(err, client, done) {
     client.query("INSERT INTO users(email, longitude, latitude) values($1, $2, $3)", [req.body.email, req.body.longitude, req.body.latitude]);
   });
 });
 
-app.get('/locations', function(req, res) {
-  pg.connect('postgres://localhost:5432/whoami_development', function(err, client, done) {
-    var query = client.query("SELECT * FROM users ORDER BY id ASC;");
+app.get('https://makerswhoami.herokuapp.com/locations', function(req, res) {
+  pg.connect('DATABASE_URL', function(err, client, done) {
+    // var query = client.query("SELECT * FROM users ORDER BY id ASC;");
     var output = [];
 
     query.on('row', function(row) {
