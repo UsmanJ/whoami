@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-app.post('https://makerswhoami.herokuapp.com/', function(req, res) {
+app.post('/locations', function(req, res) {
   console.log(req.body);
   pg.connect('DATABASE_URL', function(err, client, done) {
     client.query("INSERT INTO users(email, longitude, latitude) values($1, $2, $3)", [req.body.email, req.body.longitude, req.body.latitude]);
