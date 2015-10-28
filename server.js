@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var port = process.env.PORT || 8080;
 var pg = require('pg');
 
-app.use(express.static(__dirname + ''));
+app.use(express.static(__dirname + 'www/'+ ''));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
