@@ -3,7 +3,7 @@ whoami.controller('fbCtrl', ["$scope", "$ionicModal", "$timeout", "$http", "$cor
 	$scope.loginData = {};
 
   // Create the login modal that we will use later
-  $ionicModal.fromTemplateUrl('templates/login.html', {
+  $ionicModal.fromTemplateUrl('www/templates/login.html', {
     scope: $scope
   }).then(function(modal) {
     $scope.modal = modal;
@@ -43,7 +43,7 @@ whoami.controller('fbCtrl', ["$scope", "$ionicModal", "$timeout", "$http", "$cor
         });
 	};
 
-	function displayData(access_token) 
+	function displayData(access_token)
 	{
     $http.get("https://graph.facebook.com/v2.2/me", {params: {access_token: access_token, fields: "name,email", format: "json" }}).then(function(result) {
         var name = result.data.name;
