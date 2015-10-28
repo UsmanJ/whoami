@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "description": "whoaremi: An Ionic project",
   "scripts": {
-    "start": "node ./server",
-    "postinstall": "node ./server/models/database.js"
+    "start": "node ./server"
   },
   "dependencies": {
     "body-parser": "^1.14.1",
