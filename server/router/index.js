@@ -3,9 +3,11 @@ var router = express.Router();
 var pg = require('pg');
 
 router.post('/locations', function(req, res) {
+  console.log("==============");
+  console.log(req.params);
   pg.connect('postgres://localhost:5432/whoami_development', function(err, client, done) {
 
-    client.query("INSERT INTO users(email, longtitude, latitude) values($1, $2, $3)", [req.params.email, req.params.longtitude, req.params.latitude ]);
+    client.query("INSERT INTO users(email, longitude, latitude) values($1, $2, $3)", [req.params.email, req.params.longitude, req.params.latitude ]);
   });
 });
 
