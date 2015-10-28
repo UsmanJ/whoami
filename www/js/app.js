@@ -4,9 +4,10 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 
-var whoami = angular.module('whoami', ['ionic', 'ngCordova']);
+var whoami = angular.module('whoami', ['ionic', 'ngCordova', 'ngOpenFB']);
 
-whoami.run(function($ionicPlatform) {
+whoami.run(function($ionicPlatform, ngFB) {
+	ngFB.init({appId: '1665971677011459'});
   $ionicPlatform.ready(function() {
     if (window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
