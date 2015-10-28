@@ -24,7 +24,7 @@
 
     <script src="https://cdn.rawgit.com/driftyco/ng-cordova/master/dist/ng-cordova.min.js"></script>
     <script src="https://cdn.rawgit.com/nraboy/ng-cordova-oauth/master/dist/ng-cordova-oauth.min.js"></script>
-    <!-- <script type="text/javascript" src="www/cordova_plugins.js"></script> -->
+    <script type="text/javascript" src="www/cordova_plugins.js"></script>
     <script src="lib/ionic/js/ionic.bundle.js"></script>
 
 
@@ -64,7 +64,7 @@
         </div> -->
 
         <div ng-controller="fbCtrl as fb">
-          <button class="button button-full button-dark" ng-click="login()">
+          <button class="button button-full button-dark" ng-click="login()" ng-hide="loggedin">
             Login
           </button>
         </div>

@@ -1,6 +1,7 @@
 whoami.controller('fbCtrl', ["$scope", "$ionicModal", "$timeout", "$http", "$cordovaOauth", "ngFB", function($scope, $ionicModal, $timeout, $http, $cordovaOauth, ngFB) {
 
 	$scope.loginData = {};
+	$scope.loggedin = false;
 
   // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('templates/login.html', {
@@ -32,6 +33,7 @@ whoami.controller('fbCtrl', ["$scope", "$ionicModal", "$timeout", "$http", "$cor
                 $scope.closeLogin();
                 console.log(response.authResponse.accessToken);
                 displayData(response.authResponse.accessToken);
+                $scope.loggedin = true;
                 // $cordovaOauth.facebook("1665971677011459", ["email", "public_profile"]).then(function(result){
                 // 		displayData(result.access_token);
                 // },  function(error){
