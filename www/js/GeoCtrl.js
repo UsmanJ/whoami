@@ -1,4 +1,4 @@
-whoami.controller('GeoCtrl', function($ionicPlatform, $cordovaGeolocation) {
+whoami.controller('GeoCtrl', function($ionicPlatform, $cordovaGeolocation, $http) {
 
   var self = this;
 
@@ -9,21 +9,21 @@ whoami.controller('GeoCtrl', function($ionicPlatform, $cordovaGeolocation) {
   var posOptions = {timeout: 4000, enableHighAccuracy: true};
 
   self.where = function(){
-   $cordovaGeolocation.getCurrentPosition(posOptions)
-   .then(function(position){
-                var lat  = position.coords.latitude;
-                self.ownLat = lat;
-                var long = position.coords.longitude;
-                self.ownLong = long;
-                // self.coor.push(lat);
-                // self.coor.push(long);
-                console.log('lat', lat);
-                console.log('long', long);
-                console.log('coor', self.coor);
-            }, function(error){
-                console.log('error:', error);
-            });
+    console.log('where function');
+   $cordovaGeolocation.getCurrentPosition(posOptions).then(function(position){
+      var lat  = position.coords.latitude;
+      self.ownLat = lat;
+      var long = position.coords.longitude;
+      self.ownLong = long;
+      console.log('lat', lat);
+      console.log('long', long);
 
+      var data = {'longitude': long, 'latitude': lat}
+      $http({ method: "POST", url: "/locations", data: data }).success(function(data, status) {
+      })
+    }, function(error){
+         console.log('error:', error);
+       });
   };
 
   self.getDistance = function(lat2,lon2) {
@@ -44,6 +44,8 @@ whoami.controller('GeoCtrl', function($ionicPlatform, $cordovaGeolocation) {
    return deg * (Math.PI/180)
  }
 });
+
+
 
 
 
