@@ -22,9 +22,9 @@ whoami.controller('GeoCtrl', function($ionicPlatform, $cordovaGeolocation, $inte
 
       var data = {'longitude': self.myLongitude, 'latitude': self.myLatitude}
             $http({ method: "POST", url: "https://makerswhoami.herokuapp.com/locations", data: data }).then(function(data, status) {
-              alert('success');
+              // alert('success');
           }, function(error){
-               alert('error:', error);
+              //  alert('error:', error);
              });
     });
   }, 5000); //interval time in milliseconds
