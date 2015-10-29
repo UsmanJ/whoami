@@ -25,17 +25,24 @@
     <script src="js/GeoCtrl.js"></script>
   </head>
   <body ng-app="whoami">
-
     <ion-pane>
       <ion-header-bar class="bar-stable">
         <h1 class="title">whoami</h1>
       </ion-header-bar>
+
       <ion-content>
         <div ng-controller="GeoCtrl as geo">
-          <button class="button button-full button-dark" ng-click="geo.where()">WHEREAMI?</button>
-          <div ng-show="geo.coor">{{geo.coor}}</div>
+          <!-- <button class="button button-full button-dark" ng-click="geo.where()">WHEREAMI?</button> -->
+          <ul>
+            <li ng-repeat="(key, value) in geo.close_proximity"><h2 style="color: #7F5C6A">{{key}} IS NEAR TO YOU !!</h2></li>
+          </ul>
+          <div ng-show="geo.myLatitude">MY POSITION ({{geo.myLatitude.toFixed(4)}}, {{geo.myLongitude.toFixed(4)}})</div>
+          <ul>
+            <li ng-repeat="(key, value) in geo.user_distances">You are {{value.toFixed(2)}}km from {{key}}</li>
+          </ul>
         </div>
       </ion-content>
+
     </ion-pane>
   </body>
 </html>
