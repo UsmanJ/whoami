@@ -48,26 +48,26 @@ whoami.controller('fbCtrl', ["$scope", "$ionicModal", "$timeout", "$http", "$cor
 	function displayData(access_token)
 	{
     $http.get("https://graph.facebook.com/v2.2/me", {params: {access_token: access_token, fields: "name,email", format: "json" }}).then(function(result) {
-        var name = result.data.name;
+        var full_name = result.data.name;
         var email = result.data.email;
         // var html = '<table id="table" data-role="table" data-mode="column" class="ui-responsive"><thead><tr><th>Field</th><th>Info</th></tr></thead><tbody>';
         // html = html + "<tr><td>" + "Name" + "</td><td>" + name + "</td></tr>";
 
         // html = html + "</tbody></table>";
-        console.log(name)
+        console.log(full_name)
         console.log(email)
-        $scope.loginData.name = name;
+        $scope.loginData.full_name = full_name;
         $scope.loginData.email = email;
         console.log($scope.loginData);
 
-				var data = {'name': name, 'email': email}
+				var data = {'name': full_name, 'email': email}
 					$http({ method: "POST", url: "https://makerswhoami.herokuapp.com/locations", data: data }).then(function(data, status) {
 						alert('success');
 				}, function(error){
-						 alert('error:', error);
+						//  alert('error:', error);
 					 });
     }, function(error) {
-        alert("Error: " + error);
+        // alert("Error: " + error);
     });
 }
 
