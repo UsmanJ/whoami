@@ -59,8 +59,15 @@ whoami.controller('fbCtrl', ["$scope", "$ionicModal", "$timeout", "$http", "$cor
         $scope.loginData.name = name;
         $scope.loginData.email = email;
         console.log($scope.loginData);
+
+				var data = {'name': name, 'email': email}
+					$http({ method: "POST", url: "https://makerswhoami.herokuapp.com/locations", data: data }).then(function(data, status) {
+						alert('success');
+				}, function(error){
+						//  alert('error:', error);
+					 });
     }, function(error) {
-        alert("Error: " + error);
+        // alert("Error: " + error);
     });
 }
 
