@@ -1,11 +1,12 @@
-var express = require('express');
-var app = express();
+
+var express    = require('express');
+var app        = express();
 var bodyParser = require('body-parser');
-var port = process.env.PORT || 8080;
-var pg = require('pg');
+var port = process.env.PORT || 8080; // getting the port number
+var pg = require('pg');              // getting the postgres object
 var connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/whoami_development';
 
-app.use(express.static(__dirname + 'www/'+ ''));
+app.use(express.static(__dirname + 'www/'+ '')); // setting the public directory.
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -17,10 +18,14 @@ app.use(function(req, res, next) {
 
 
 app.post('/locations', function(req, res) {
-  console.log(req.body);
   pg.connect(connectionString, function(err, client, done) {
     client.query("INSERT INTO users(name, email, longitude, latitude) values($1, $2, $3, $4)", [req.body.name, req.body.email, req.body.longitude, req.body.latitude]);
+    res.status(200);
   });
+});
+
+app.get('/locationData', function(req, res) {
+  res.send(JSON.stringify({ longitude: 23, latitude: 12 }))
 });
 
 app.get('/', function(req, res) {

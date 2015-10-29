@@ -10,6 +10,12 @@ whoami.controller('GeoCtrl', function($ionicPlatform, $cordovaGeolocation, $inte
   self.myLatitude = ""
   self.myLongitude = ""
 
+  $http.get("https://makerswhoami.herokuapp.com/locationData", function(data) {
+    self.locationData = data;
+  });
+
+  console.log(self.locationData);
+
   var posOptions = {timeout: 4000, enableHighAccuracy: true};
 
   $interval(function(){
@@ -21,11 +27,13 @@ whoami.controller('GeoCtrl', function($ionicPlatform, $cordovaGeolocation, $inte
       console.log('longitude', self.myLongitude);
 
       var data = {'longitude': self.myLongitude, 'latitude': self.myLatitude}
-            $http({ method: "POST", url: "https://makerswhoami.herokuapp.com/locations", data: data }).then(function(data, status) {
+      $http({ method: "POST", url: "https://makerswhoami.herokuapp.com/locations", data: data })
+        .then(function(data, status) {
               // alert('success');
           }, function(error){
               //  alert('error:', error);
-             });
+             }
+        );
     });
   }, 5000); //interval time in milliseconds
 
