@@ -26,7 +26,7 @@ app.post('/locations', function(req, res) {
 app.post('/locations', function(req, res) {
   console.log(req.body);
   pg.connect(connectionString, function(err, client, done) {
-    client.query("INSERT INTO users(name, email, longitude, latitude) values($1, $2, $3)", [req.body.full_name, req.body.email, req.body.longitude, req.body.latitude]);
+    client.query("INSERT INTO users(name, email, longitude, latitude) values($1, $2, $3, $4)", [req.body.full_name, req.body.email, req.body.longitude, req.body.latitude]);
   });
 });
 
