@@ -14,16 +14,32 @@
 
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <script src="lib/ionic-platform-web-client/dist/ionic.io.bundle.min.js"></script>
 
 
     <!-- cordova script (this will be a 404 during development) -->
     <script src="lib/ngCordova/dist/ng-cordova.js"></script>
-    <script src="cordova.js"></script>
+    <!-- Cordova is bootstrapped by ionic-platform-web-client, uncomment this if you remove ionic-platform-web-client... -->
+    <!-- <script src="cordova.js"></script> -->
 
+    <script src="https://cdn.rawgit.com/driftyco/ng-cordova/master/dist/ng-cordova.min.js"></script>
+    <script src="https://cdn.rawgit.com/nraboy/ng-cordova-oauth/master/dist/ng-cordova-oauth.min.js"></script>
+    <script type="text/javascript" src="www/cordova_plugins.js"></script>
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="lib/ngCordova/dist/ng-cordova.js"></script>
+    <!-- <script src="cordova.js"></script> -->
+
+    <script src="js/openfb.js"></script>
+    <script src="js/ngopenfb.js"></script>
     <!-- your app's js -->
     <script src="js/app.js"></script>
     <script src="js/GeoCtrl.js"></script>
+    <script src="js/fbCtrl.js"></script>
   </head>
+
   <body ng-app="whoami">
     <ion-pane>
       <ion-header-bar class="bar-stable">
@@ -31,8 +47,12 @@
       </ion-header-bar>
 
       <ion-content>
+
+        <div ng-controller="fbCtrl as fb">
+          <button class="button button-full button-dark" ng-click="login()" ng-hide="loggedin">Login</button>
+        </div>
+
         <div ng-controller="GeoCtrl as geo">
-          <!-- <button class="button button-full button-dark" ng-click="geo.where()">WHEREAMI?</button> -->
           <ul>
             <li ng-repeat="(key, value) in geo.close_proximity"><h2 style="color: #7F5C6A">{{key}} IS NEAR TO YOU !!</h2></li>
           </ul>
@@ -42,7 +62,6 @@
           </ul>
         </div>
       </ion-content>
-
     </ion-pane>
   </body>
 </html>
