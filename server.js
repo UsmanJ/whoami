@@ -52,10 +52,10 @@ app.put('/locations', function(req, res) {
     var id = req.body.user_id;
 
     // Grab data from http request
-    var data = {longitude: req.body.longitude, latitude: req.body.latitude};
+    var data = {'longitude': self.myLongitude, 'latitude': self.myLatitude}
 
     // Get a Postgres client from the connection pool
-    pg.connect('postgres://localhost:5432/whoami_development', function(err, client, done) {
+    pg.connect(connectionString, function(err, client, done) {
         // Handle connection errors
         if(err) {
           done();
@@ -64,22 +64,22 @@ app.put('/locations', function(req, res) {
         }
 
         // SQL Query > Update Data
-        client.query("UPDATE locations SET longitude=($1), latitude=($2) WHERE id=($3)", [req.body.longitude, req.body.latitude, req.body.user_id]);
-
-        // SQL Query > Select Data
-        var query = client.query("SELECT * FROM users ORDER BY id ASC");
-        var output = [];
-
-        // Stream results back one row at a time
-        query.on('row', function(row) {
-            output.push(row);
-        });
-
-        // After all data is returned, close connection and return results
-        query.on('end', function() {
-            done();
-            return res.json(output);
-        });
+        client.query("UPDATE users SET longitude=($3), latitude=($4) WHERE id=($1)", [req.body.longitude, req.body.latitude, req.body.user_id]);
+        //
+        // // SQL Query > Select Data
+        // var query = client.query("SELECT * FROM users ORDER BY id ASC");
+        // var output = [];
+        //
+        // // Stream results back one row at a time
+        // query.on('row', function(row) {
+        //     output.push(row);
+        // });
+        //
+        // // After all data is returned, close connection and return results
+        // query.on('end', function() {
+        //     done();
+        //     return res.json(output);
+        // });
     });
 
 });
