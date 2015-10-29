@@ -23,13 +23,6 @@ app.post('/locations', function(req, res) {
   });
 });
 
-// app.post('/locations', function(req, res) {
-//   console.log(req.body);
-//   pg.connect(connectionString, function(err, client, done) {
-//     client.query("INSERT INTO users(name, email, longitude, latitude) values($1, $2, $3)", [req.body.name, req.body.email, req.body.longitude, req.body.latitude]);
-//   });
-// });
-
 app.get('/', function(req, res) {
   pg.connect(connectionString, function(err, client, done) {
     console.log(client)

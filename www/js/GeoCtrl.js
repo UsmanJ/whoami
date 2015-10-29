@@ -65,6 +65,4 @@ whoami.controller('GeoCtrl', function($ionicPlatform, $cordovaGeolocation, $inte
       console.log(self.close_proximity);
     })
   }, 7500);
-
-
 });
