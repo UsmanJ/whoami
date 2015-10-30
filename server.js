@@ -3,11 +3,18 @@ var app = express();
 var bodyParser = require('body-parser');
 var port = process.env.PORT || 8080;
 var pg = require('pg');
+var cors = require('express-cors')
 var connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/whoami_development';
 
 app.use(express.static(__dirname + 'www/'+ ''));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(cors({
+    allowedOrigins: [
+        'https://makerswhoami.herokuapp.com/', 'https://makerswhoami.herokuapp.com/locations'
+    ]
+}))
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
