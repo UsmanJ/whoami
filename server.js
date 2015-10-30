@@ -42,10 +42,10 @@ app.get('/', function(req, res) {
 
 app.put('/locations', function(req, res) {
 
-    var id = req.body.user_id;
+    var email = req.body.email;
 
     // Grab data from http request
-    var data = {longitude: req.body.longitude, latitude: req.body.latitude};
+    // var data = {longitude: req.body.longitude, latitude: req.body.latitude};
 
     // Get a Postgres client from the connection pool
     pg.connect('postgres://localhost:5432/whoami_development', function(err, client, done) {
@@ -57,7 +57,7 @@ app.put('/locations', function(req, res) {
         }
 
         // SQL Query > Update Data
-        client.query("UPDATE locations SET longitude=($1), latitude=($2) WHERE id=($3)", [req.body.longitude, req.body.latitude, req.body.user_id]);
+        client.query("UPDATE users SET longitude=($3), latitude=($4) WHERE email=($2)", [req.body.longitude, req.body.latitude, req.body.email]);
 
         // SQL Query > Select Data
         var query = client.query("SELECT * FROM users ORDER BY id ASC");
